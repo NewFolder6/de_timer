@@ -22,8 +22,8 @@ A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual co
    ```
 
 2. **Launch the Application**:
-   - Download the .exe executable from the lastest release, and just double click it!
-   - Run the timer application
+   - Download the .exe executable from the lastest release
+   - Run the de_timer application
    - The overlay will automatically connect to CS2 when a match starts
    - the program might say that it is unsafe or whatever, but when it pops up, just click "more details" and "run anyway"
 
