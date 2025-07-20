@@ -32,6 +32,6 @@ A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual co
 ## Usage
 
 1. Start CS2 and join a match
-2. Launch the C4 Timer application
+2. Launch the de_timer application
 3. The timer will automatically appear when the C4 is planted
-4. Position the overlay window as desired on your screen
+4. Position the overlay window as desired on your screen *to be developed
