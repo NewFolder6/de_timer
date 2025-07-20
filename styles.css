@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#timer-container {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #00ff00; /* Default green */
+    border-radius: 10px;
+    padding: 20px 30px;
+    transition: border-color 0.3s ease;
+}
+
+#timer-container.safe {
+    border-color: #00ff00; /* Green - above 10 seconds */
+}
+
+#timer-container.warning {
+    border-color: #ffff00; /* Yellow - 5-10 seconds (defusable with kit) */
+}
+
+#timer-container.danger {
+    border-color: #ff0000; /* Red - below 5 seconds */
+}
+
+#timer {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    transition: color 0.3s ease;
+}
+
+#timer-container.safe #timer {
+    color: #00ff00; /* Green text */
+}
+
+#timer-container.warning #timer {
+    color: #ffff00; /* Yellow text */
+}
+
+#timer-container.danger #timer {
+    color: #ff0000; /* Red text */
+}
+
+/* Alternative border colors you can use:
+   Blue: #0088ff
+   Purple: #8800ff  
+   Orange: #ff8800
+   Cyan: #00ffff
+   Yellow: #ffff00
+   White: #ffffff
+   Pink: #ff00ff
+*/

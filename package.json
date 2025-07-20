@@ -1,0 +1,23 @@
+{
+  "name": "cs2-c4-timer-overlay",
+  "version": "1.0.0",
+  "description": "A transparent overlay for CS2 C4 timer using GSI.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "cs2",
+    "gsi",
+    "overlay",
+    "electron"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}
