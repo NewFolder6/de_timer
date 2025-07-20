@@ -26,21 +26,40 @@ function createWindow() {
       contextIsolation: true,
     },
     alwaysOnTop: true,
-    skipTaskbar: true,
+    skipTaskbar: false,
     resizable: false,
-    minimizable: false,
-    maximizable: false,
-    focusable: false,
+    minimizable: true,
+    maximizable: true,
+    focusable: true,
+    show: false
   });
 
   mainWindow.setIgnoreMouseEvents(true);
-  mainWindow.setAlwaysOnTop(true, 'screen-saver');
   mainWindow.setVisibleOnAllWorkspaces(true);
   mainWindow.loadFile('index.html');
 
+  // Show window after it's ready and force maximum always on top
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+    mainWindow.setAlwaysOnTop(true, 'screen-saver', 1);
+    mainWindow.moveTop();
+    
+    // Force refresh position periodically to combat fullscreen issues
+    setInterval(() => {
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.setAlwaysOnTop(false);
+        mainWindow.setAlwaysOnTop(true, 'screen-saver', 1);
+        mainWindow.moveTop();
+      }
+    }, 2000);
+  });
+
   // Force window to stay on top even in fullscreen games
   mainWindow.on('blur', () => {
-    mainWindow.setAlwaysOnTop(true, 'screen-saver');
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.setAlwaysOnTop(true, 'screen-saver', 1);
+      mainWindow.moveTop();
+    }
   });
 
   //mainWindow.webContents.openDevTools(); // For debugging

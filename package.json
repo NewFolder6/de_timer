@@ -1,23 +1,39 @@
 {
-  "name": "cs2-c4-timer-overlay",
-  "version": "1.0.0",
-  "description": "A transparent overlay for CS2 C4 timer using GSI.",
+  "name": "de_timer",
+  "version": "0.0.1",
+  "description": "CS2 C4 Timer with GSI integration",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build-win": "electron-builder --win",
+    "dist": "electron-builder --publish=never"
   },
-  "keywords": [
-    "cs2",
-    "gsi",
-    "overlay",
-    "electron"
-  ],
-  "author": "",
-  "license": "ISC",
+  "author": "New_Folder(6)",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-builder": "^26.0.12"
+  },
   "dependencies": {
     "express": "^4.18.2"
   },
-  "devDependencies": {
-    "electron": "^25.2.0"
+  "build": {
+    "appId": "com.New_Folder6.de_timer",
+    "productName": "de_timer",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "icon.ico"
+    }
   }
 }
