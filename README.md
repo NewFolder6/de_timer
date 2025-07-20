@@ -1,4 +1,4 @@
-# CS2 C4 Timer
+# de_timer
 
 A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual countdown and color-coded warnings during bomb defusal scenarios.
 
