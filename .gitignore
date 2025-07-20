@@ -64,6 +64,3 @@ temp/
 # Config files that might contain sensitive data
 config.json
 secrets.json
-
-# CS2 GSI config (since it's already in the CS2 folder)
-gamestate_integration_*.cfg
