@@ -1,4 +1,4 @@
-# CS2 C4 Timer
+# de_timer
 
 A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual countdown and color-coded warnings during bomb defusal scenarios.
 
@@ -22,8 +22,8 @@ A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual co
    ```
 
 2. **Launch the Application**:
-   - Download the .exe executable from the lastest release, and just double click it!
-   - Run the timer application
+   - Download the .exe executable from the lastest release
+   - Run the de_timer application
    - The overlay will automatically connect to CS2 when a match starts
    - the program might say that it is unsafe or whatever, but when it pops up, just click "more details" and "run anyway"
 
@@ -32,6 +32,6 @@ A real-time C4 defuse timer overlay for Counter-Strike 2 that provides visual co
 ## Usage
 
 1. Start CS2 and join a match
-2. Launch the C4 Timer application
+2. Launch the de_timer application
 3. The timer will automatically appear when the C4 is planted
-4. Position the overlay window as desired on your screen
+4. Position the overlay window as desired on your screen *to be developed
