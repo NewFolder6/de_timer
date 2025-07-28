@@ -1,9 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, nativeImage } = require('electron');
 const path = require('path');
 const express = require('express');
 const http = require('http');
 
 let mainWindow;
+let tray;
 
 function createWindow() {
   const { screen } = require('electron');
@@ -26,7 +27,7 @@ function createWindow() {
       contextIsolation: true,
     },
     alwaysOnTop: true,
-    skipTaskbar: false,
+    skipTaskbar: true,
     resizable: false,
     minimizable: true,
     maximizable: true,
@@ -62,11 +63,58 @@ function createWindow() {
     }
   });
 
+  // Hide window instead of closing when user clicks X
+  mainWindow.on('close', (event) => {
+    if (!app.isQuiting) {
+      event.preventDefault();
+      mainWindow.hide();
+    }
+  });
+
   //mainWindow.webContents.openDevTools(); // For debugging
+}
+
+function createTray() {
+  // Create a simple 16x16 icon for the system tray
+  const icon = nativeImage.createFromDataURL(`data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAFYSURBVDiNpZM9SwNBEIafJQQLwcJCG1sLwcJCG0uxsLGwsLBQsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLCwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLGwsLCwsLCwsLCw`);
+  
+  tray = new Tray(icon);
+  
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'CS2 C4 Timer',
+      enabled: false
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Exit',
+      click: () => {
+        app.isQuiting = true;
+        app.quit();
+      }
+    }
+  ]);
+  
+  tray.setToolTip('CS2 C4 Timer');
+  tray.setContextMenu(contextMenu);
+  
+  // Optional: Show/hide window on tray click (double-click on Windows)
+  tray.on('double-click', () => {
+    if (mainWindow) {
+      if (mainWindow.isVisible()) {
+        mainWindow.hide();
+      } else {
+        mainWindow.show();
+      }
+    }
+  });
 }
 
 app.whenReady().then(() => {
   createWindow();
+  createTray();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -76,7 +124,9 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  // On Windows, keep the app running in the system tray
+  // Don't quit when all windows are closed
+  if (process.platform === 'darwin') {
     app.quit();
   }
 });
@@ -110,5 +160,6 @@ server.listen(port, () => {
 });
 
 ipcMain.on('quit-app', () => {
+    app.isQuiting = true;
     app.quit();
 });
