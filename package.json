@@ -1,6 +1,6 @@
 {
   "name": "de_timer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "CS2 C4 Timer with GSI integration",
   "main": "main.js",
   "scripts": {
